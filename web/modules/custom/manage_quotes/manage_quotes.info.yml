@@ -1,0 +1,5 @@
+name: 'Manage Quotes'
+type: module
+description: 'A module to manage quotes'
+package: Custom
+core_version_requirement: ^10

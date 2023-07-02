@@ -1,0 +1,5 @@
+name: drupal-book
+recipe: drupal10
+config:
+  webroot: web
+  xdebug: true
