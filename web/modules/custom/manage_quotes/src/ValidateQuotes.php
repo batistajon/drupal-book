@@ -151,7 +151,7 @@ class ValidateQuotes {
      * @return boolean
      */
     private function hasMatchSearch(string $quote_text, string $search_term): bool {
-        if (strpos($quote_text, $search_term) === false) {
+        if (stripos($quote_text, $search_term) === false) {
             return FALSE;
         }
         
