@@ -1,0 +1,21 @@
+uuid: 0bb34c2e-016d-4209-acea-d26dbb639a1b
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.book_category
+  module:
+    - text
+id: taxonomy_term.book_category.default
+targetEntityType: taxonomy_term
+bundle: book_category
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden: {  }

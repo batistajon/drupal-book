@@ -1,0 +1,10 @@
+uuid: 02329fe4-9faf-4207-8be5-a9f1d6379080
+langcode: en
+status: true
+dependencies: {  }
+id: quotes_paragraph
+label: 'Quotes Paragraph'
+icon_uuid: null
+icon_default: null
+description: 'Paragraph to create quotes'
+behavior_plugins: {  }
