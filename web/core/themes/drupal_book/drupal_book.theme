@@ -1,0 +1,7 @@
+<?php
+
+function drupal_book_preprocess_field(&$variables, $hook) {
+    if ($variables['element']['#field_name'] == "field_quotes" && $variables["element"]["#bundle"] == "article") {
+        unset($variables['items']);
+    }
+}
