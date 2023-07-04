@@ -4,7 +4,7 @@ It's a brand new D10 instalation which reproduces in a simple way the Quotes fea
 
 I'm using Lando as Dev tool, so to launch this env, make sure you have [Lando](https://docs.lando.dev/) and [Docker](https://docs.docker.com/engine/install/) installed.
 
-To do it I created a View which search Quotes (Paragraphs) fields in Articles content type, and then I created a module that treat the pre-render view's result.
+To do it I created a View which search Quotes (Paragraphs) fields in Articles content type, and then I created a module - Manage Quotes - that treat the pre-render view's result.
 
 I've deployed the result on http://54.89.212.175/. You can see the Search Quotes feature by accessing http://54.89.212.175/search-quotes.
 
