@@ -1,0 +1,22 @@
+uuid: 20006c67-84c4-4d68-b93b-d8751fc9aae2
+langcode: en
+status: true
+dependencies:
+  theme:
+    - drupal_book
+_core:
+  default_config_hash: ydSxdq7R66I8UMC460rOzlfzvlUL4VRbdwc6z9DWaUI
+id: drupal_book_secondary_local_tasks
+theme: drupal_book
+region: highlighted
+weight: -2
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

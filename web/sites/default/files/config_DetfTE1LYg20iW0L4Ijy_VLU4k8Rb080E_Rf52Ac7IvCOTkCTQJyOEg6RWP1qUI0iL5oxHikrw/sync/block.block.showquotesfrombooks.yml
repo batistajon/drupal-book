@@ -1,0 +1,49 @@
+uuid: eab0e729-7778-431c-a61e-6c0953b356c3
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:3c86078a-9a9c-4f70-b368-02f8869d45f8'
+  module:
+    - block_content
+    - node
+    - system
+    - user
+  theme:
+    - olivero
+id: showquotesfrombooks
+theme: olivero
+region: sidebar
+weight: 0
+provider: null
+plugin: 'block_content:3c86078a-9a9c-4f70-b368-02f8869d45f8'
+settings:
+  id: 'block_content:3c86078a-9a9c-4f70-b368-02f8869d45f8'
+  label: 'Show quotes from books'
+  label_display: '0'
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: '/node/*'
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      anonymous: anonymous
+      authenticated: authenticated
+      content_editor: content_editor
+      administrator: administrator
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      article: article

@@ -1,0 +1,22 @@
+uuid: bea50418-7574-4966-a5bf-4d4eb1f3c626
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - drupal_book
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: drupal_book_breadcrumbs
+theme: drupal_book
+region: breadcrumb
+weight: 0
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,31 @@
+uuid: 6c68d29e-71a5-4eec-81e4-989bcb11b23e
+langcode: en
+status: true
+dependencies:
+  config:
+    - block_content.type.basic
+    - field.storage.block_content.field_block_quotes
+    - paragraphs.paragraphs_type.quotes_paragraph
+  module:
+    - entity_reference_revisions
+id: block_content.basic.field_block_quotes
+field_name: field_block_quotes
+entity_type: block_content
+bundle: basic
+label: 'Block Quotes'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      quotes_paragraph: quotes_paragraph
+    negate: 0
+    target_bundles_drag_drop:
+      quotes_paragraph:
+        weight: 2
+        enabled: true
+field_type: entity_reference_revisions
