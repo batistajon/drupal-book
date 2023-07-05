@@ -1,6 +1,5 @@
 <?php
 
-use Drupal\manage_quotes\ValidateQuotes;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -17,7 +16,11 @@ function manage_quotes_views_pre_render(ViewExecutable $view) {
     // view will return both even if the searched term won't
     // contain in the quote
     $search_term = $view->exposed_data['body_value'];
-    $validate_quotes = new ValidateQuotes($view->result, $search_term);
+    $validate_quotes = \Drupal::service('manage_quotes.validate_quotes');
+    $validate_quotes->setUnfilteredQuotes($view->result);
+    $validate_quotes->setSearchTerm($search_term);
+    $validate_quotes->validate($validate_quotes->getUnfilteredQuotes());
+
     $view->result = $validate_quotes->getValidQuotes();
 
 }

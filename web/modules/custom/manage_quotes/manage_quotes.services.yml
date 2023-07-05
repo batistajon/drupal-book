@@ -1,0 +1,5 @@
+services:
+  manage_quotes.validate_quotes:
+    class: Drupal\manage_quotes\ValidateQuotes
+    arguments: 
+      - '@entity_type.manager'

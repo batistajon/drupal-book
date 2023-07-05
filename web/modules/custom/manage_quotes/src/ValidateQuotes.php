@@ -2,6 +2,7 @@
 
 namespace Drupal\manage_quotes;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelTrait;
 use Drupal\paragraphs\Entity\Paragraph;
 
@@ -44,15 +45,17 @@ class ValidateQuotes {
     protected $valid_quotes;
 
     /**
-     * Quotes validator constructor 
+     * Set default entity type manager attribute
      *
-     * @param array $unfiltered_quotes
-     * @param string $search_term
+     * @var EntityTypeManagerInterface
      */
-    public function __construct(array $unfiltered_quotes, string $search_term) {
-        $this->setUnfilteredQuotes($unfiltered_quotes);
-        $this->setSearchTerm($search_term);
-        $this->validate($this->getUnfilteredQuotes());
+    public $entityTypeManager;
+
+    /**
+     * Constructs a new DefaultService object.
+     */
+    public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+        $this->entityTypeManager = $entity_type_manager;
     }
 
     /**
@@ -80,7 +83,7 @@ class ValidateQuotes {
      * @param [type] $search_term
      * @return void
      */
-    private function setSearchTerm($search_term): void {
+    public function setSearchTerm($search_term): void {
         $this->search_term = $search_term;
     }
 
@@ -99,7 +102,7 @@ class ValidateQuotes {
      * @param [type] $unfiltered_quotes
      * @return void
      */
-    private function setUnfilteredQuotes($unfiltered_quotes): void {
+    public function setUnfilteredQuotes($unfiltered_quotes): void {
         $this->unfiltered_quotes = $unfiltered_quotes;
     }
 
@@ -108,7 +111,7 @@ class ValidateQuotes {
      *
      * @return array
      */
-    private function getUnfilteredQuotes(): array {
+    public function getUnfilteredQuotes(): array {
         return $this->unfiltered_quotes;
     }
    
@@ -198,7 +201,7 @@ class ValidateQuotes {
      * @param array $unfiltered_quotes
      * @return void
      */
-    public function validate(array $unfiltered_quotes) {
+    public function validate(array $unfiltered_quotes): void {
         foreach ($unfiltered_quotes as $key => $quote) {
             $paragraphs = $quote->_entity
               ->getFields()['field_quotes']
