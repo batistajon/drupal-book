@@ -22,4 +22,4 @@ install:
   - sudo apt-get update > /dev/null
 
 script:
-  - echo "scripts here"
+  - echo "scripts here using travis"
