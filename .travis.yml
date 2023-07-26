@@ -1,0 +1,25 @@
+sudo: true
+language: php
+dist: xenial
+
+# Adjust the version of PHP to match your production environment. Making this
+# version number greater than the production environment can have unintended
+# consequences including a non-functional prod environment.
+# The version here MUST match the php version indicated in the deploy section
+# of this file further below, otherwise the artifact won't build.
+php: 8.1.9
+
+matrix:
+  fast_finish: true
+
+before_install:
+  - "echo 'Started: ' && date"
+  # Disable xdebug.
+  - phpenv config-rm xdebug.ini
+  - composer validate --no-check-all --ansi
+
+install:
+  - sudo apt-get update > /dev/null
+
+script:
+  - echo scripts here
