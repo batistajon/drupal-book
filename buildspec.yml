@@ -5,7 +5,7 @@ env:
 phases:
   install:
     runtime-versions:
-      php: 8.1
+      php: 8.2
     commands:
       - echo "install step"
 
@@ -16,6 +16,9 @@ phases:
     commands:
       - echo "composer install"
       - echo "drush commands"
+      - ls -lah
+      - cd ..
+      - ls -lah
   post_build:
     commands:
       - echo "Zip the report"
