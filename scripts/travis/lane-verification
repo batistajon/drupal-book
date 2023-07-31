@@ -1,3 +1,6 @@
 #!/bin/sh
 
 echo "$TRAVIS_PULL_REQUEST_BRANCH"
+echo "$TRAVIS_COMMIT_MESSAGE"
+
+git log origin/develop --no-merges --pretty=format:"%B" --not "origin/staging" | tr a-z A-Z | tr ' ,' '\n' | grep -o '[A-Z]\+-[0-9]\+' | sort --version-sort | uniq | tr '\n' ','
