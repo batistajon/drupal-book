@@ -3,8 +3,8 @@
 echo "$TRAVIS_PULL_REQUEST_BRANCH"
 echo "Commit message: ${TRAVIS_COMMIT_MESSAGE}"
 
-$JIRA_TICKET_B = $(git log origin/$TRAVIS_PULL_REQUEST_BRANCH --no-merges --pretty=format:"%B" --not "origin/develop" | tr a-z A-Z | tr ' ,' '\n' | grep -o '[A-Z]\+-[0-9]\+' | sort --version-sort | uniq | tr '\n' ',')
+$JIRA_TICKET_B = $(echo "$TRAVIS_PULL_REQUEST_BRANCH" | tr a-z A-Z | tr ' ,' '\n' | grep -o '[A-Z]\+-[0-9]\+')
 echo "Based on branch: ${JIRA_TICKET_B}"
 
-$JIRA_TICKET_C = $(git log origin/$TRAVIS_COMMIT_MESSAGE --no-merges --pretty=format:"%B" --not "origin/develop" | tr a-z A-Z | tr ' ,' '\n' | grep -o '[A-Z]\+-[0-9]\+' | sort --version-sort | uniq | tr '\n' ',')
+$JIRA_TICKET_C = $(echo "$TRAVIS_COMMIT_MESSAGE" | tr a-z A-Z | tr ' ,' '\n' | grep -o '[A-Z]\+-[0-9]\+')
 echo "Based on commit: ${JIRA_TICKET_C}"
