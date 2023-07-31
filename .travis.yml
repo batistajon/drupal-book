@@ -16,6 +16,5 @@ before_install:
   - "echo 'Started: ' && date"
   - source ${TRAVIS_BUILD_DIR}/scripts/travis/lane-verification --no-interaction
 install:
-  - sudo apt-get update > /dev/null
   - echo "scripts here using travis"
   - source ${TRAVIS_BUILD_DIR}/scripts/travis/move-to-codemerged --no-interaction
