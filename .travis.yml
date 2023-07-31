@@ -14,15 +14,8 @@ matrix:
 
 before_install:
   - "echo 'Started: ' && date"
-  # Disable xdebug.
-  - phpenv config-rm xdebug.ini
-  - composer validate --no-check-all --ansi
   - source ${TRAVIS_BUILD_DIR}/scripts/travis/lane-verification --no-interaction
 install:
   - sudo apt-get update > /dev/null
-
-script:
   - echo "scripts here using travis"
   - source ${TRAVIS_BUILD_DIR}/scripts/travis/move-to-codemerged --no-interaction
-  # - curl -u batista.jonathas@gmail.com:ATATT3xFfGF0lkSdCGkOPrI2QFxwJnRrtLXLSO1eOavmw-vk3UBnFNeKvw325wfofnO7q4LrECJr3NTsv3YuDHwrzY2-f_vhoCSPYDadoJjuYOUQDwqaV7VJhYiw6H7QdTHo85MzUeGEeag-rSB8-00UwQeqEA4q2hETZwnsumyw7dJwXd1-NaM=476CB766 -X GET -H "Content-Type: application/json" "https://autovistoriaex.atlassian.net/rest/api/3/issue/AE-27/transitions" | jq '.[]'
-
