@@ -3,8 +3,8 @@
 echo "$TRAVIS_PULL_REQUEST_BRANCH"
 echo "Commit message: ${TRAVIS_COMMIT_MESSAGE}"
 
-$JIRA_TICKET_B = $(echo $TRAVIS_PULL_REQUEST_BRANCH | grep -o '[A-Z]\+-[0-9]\+')
+$JIRA_TICKET_B=`echo "$TRAVIS_PULL_REQUEST_BRANCH" | grep -o '[A-Z]\+-[0-9]\+'`
 echo "Based on branch: ${JIRA_TICKET_B}"
 
-$JIRA_TICKET_C = $(echo $TRAVIS_COMMIT_MESSAGE | grep -o '[A-Z]\+-[0-9]\+')
+$JIRA_TICKET_C = $(echo "$TRAVIS_COMMIT_MESSAGE" | grep -o '[A-Z]\+-[0-9]\+')
 echo "Based on commit: ${JIRA_TICKET_C}"
