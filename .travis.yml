@@ -21,3 +21,6 @@ before_install:
 install:
   - echo "scripts here using travis"
   - source ${TRAVIS_BUILD_DIR}/scripts/travis/move-to-codemerged --no-interaction
+
+script:
+  - "echo 'Ended: ' && date"
