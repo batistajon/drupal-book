@@ -7,3 +7,12 @@ echo "${JIRA_TICKET}"
 
 TICKET_STATUS=$(curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" | jq '.fields.status.id')
 echo "${TICKET_STATUS}"
+
+# The Code Review status ID is 10050
+if [ $TICKET_STATUS != "10050" ]; then
+    echo "Error: Wrong Status. Please change the Ticket to Code Merged status";
+    exit 1
+else
+    echo "Jira Status Correct!";
+    exit 0;
+fi
