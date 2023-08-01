@@ -1,7 +1,5 @@
 #!/bin/sh
 
-echo "${$TRAVIS_PULL_REQUEST_BRANCH}"
-
 JIRA_TICKET=$(echo "$TRAVIS_PULL_REQUEST_BRANCH" | grep -o '[A-Z]\+-[0-9]\+')
 echo "${JIRA_TICKET}"
 
@@ -9,7 +7,7 @@ TICKET_STATUS=$(curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type:
 echo "${TICKET_STATUS}"
 
 # The Code Review status ID is 10050
-if [ $TICKET_STATUS != "10050" ]; then
+if [ "$TICKET_STATUS" != "10050" ]; then
     echo "Error: Wrong Status. Please change the Ticket to Code Merged status";
     exit 1
 else
