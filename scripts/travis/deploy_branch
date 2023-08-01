@@ -12,5 +12,5 @@ if [ "$TICKET_STATUS" = "10050" ]; then
     echo "Jira Status Correct!";
 else
     echo "Jira Automation Message: Ticket merged with wrong status. Please change the Ticket to Code Review to log work hours and then move it to code merged."
-    curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"body": "content": [{"content": [{"text": "Jira Automation Message: Ticket merged with wrong status. Please change the Ticket to Code Review to log work hours and then move it to code merged.", "type": "text"}], "type": "paragraph"}]}' -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" | jq '.';
+    # curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"body": "content": [{"content": [{"text": "Jira Automation Message: Ticket merged with wrong status. Please change the Ticket to Code Review to log work hours and then move it to code merged.", "type": "text"}], "type": "paragraph"}]}' -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" | jq '.';
 fi
