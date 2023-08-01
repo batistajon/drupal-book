@@ -15,5 +15,3 @@ else
     echo "Error: Wrong Jira Status. Please change the Ticket to Code Merged status";
     exit 1
 fi
-
-# curl -u username:password -X POST --data '{"transition":{"id":"11"}}' -H "Content-Type: application/json" http://jira/rest/api/2/issue/TEST-1/transitions

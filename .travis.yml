@@ -24,3 +24,4 @@ install:
 
 script:
   - "echo 'Ended: ' && date"
+  - source ${TRAVIS_BUILD_DIR}/scripts/travis/deploy_branch --no-interaction
