@@ -12,6 +12,25 @@ echo "Current status: ${TICKET_STATUS}"
 if [ "$TICKET_STATUS" = "10050" ]; then
     echo "Jira Status Correct!";
 else
+    curl --request PUT \
+  --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" \
+  --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+  --header 'Accept: application/json' \
+  --header 'Content-Type: application/json' \
+  --data '{
+        "fields": {
+            "customfield_10021": "Impediment"
+        },
+        "update": {
+            "labels": [
+                {
+                    "add": "pr-process-issue"
+                }
+            ]
+        }
+    }' |
+    jq '.'
+
    curl --request POST \
   --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
   --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
@@ -23,7 +42,7 @@ else
             {
                 "content": [
                 {
-                    "text": "Test Message Automation",
+                    "text": "Jira Automation Message: Pull Request opens with wrong status. Please change the Ticket to Code Review to log work hours.",
                     "type": "text"
                 }
                 ],
