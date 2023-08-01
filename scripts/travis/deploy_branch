@@ -6,3 +6,11 @@ JIRA_TICKET=$(echo "$TRAVIS_PULL_REQUEST_BRANCH" | grep -o '[A-Z]\+-[0-9]\+' )
 echo "${JIRA_TICKET}"
 # Change status ticket to code merged
 # curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"transition":{"id":"181"}}' -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/transitions" | jq '.'
+
+# The Code Review status ID is 10050
+if [ "$TICKET_STATUS" = "10050" ]; then
+    echo "Jira Status Correct!";
+else
+    echo "Jira Automation Message: Ticket merged with wrong status. Please change the Ticket to Code Review to log work hours and then move it to code merged."
+    curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"body": "content": [{"content": [{"text": "Jira Automation Message: Ticket merged with wrong status. Please change the Ticket to Code Review to log work hours and then move it to code merged.", "type": "text"}], "type": "paragraph"}]}' -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" | jq '.';
+fi
