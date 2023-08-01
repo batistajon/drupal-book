@@ -18,9 +18,6 @@ else
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
     --data '{
-        "fields": {
-            "customfield_10021": "Impediment"
-        },
         "update": {
             "labels": [
                 {
