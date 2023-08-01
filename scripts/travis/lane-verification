@@ -11,8 +11,7 @@ echo "Current status: ${TICKET_STATUS}"
 # The Code Review status ID is 10050
 if [ "$TICKET_STATUS" = "10050" ]; then
     echo "Jira Status Correct!";
-    exit 0;
 else
-    echo "Error: Wrong Jira Status. Please change the Ticket to Code Merged status";
-    exit 1
+    TICKET_STATUS_MESSAGE="Jira Automation Message: Wrong Jira Status. Please change the Ticket to Code Merged status when opening a PR.";
+    curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{ "update": { "comment": [ { "add": { "body": "' + ${TICKET_STATUS_MESSAGE} + '" } } ] }}' -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/transitions" | jq '.';
 fi
