@@ -2,5 +2,6 @@
 
 echo "deploy artifact"
 
+echo "${JIRA_TICKET}"
 # Change status ticket to code merged
-curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"transition":{"id":"181"}}' -H "Content-Type: application/json" "http://jira/rest/api/2/issue/${JIRA_TICKET}/transitions"
+# curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"transition":{"id":"181"}}' -H "Content-Type: application/json" "http://jira/rest/api/2/issue/${JIRA_TICKET}/transitions"
