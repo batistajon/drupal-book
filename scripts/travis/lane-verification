@@ -18,6 +18,9 @@ else
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --data '{
+        "fields": {
+            "customfield_10021": "Impediment"
+        },
         "update": {
             "labels": [
                 {
@@ -28,28 +31,28 @@ else
     }' |
     jq '.'
 
-    TICKET_ID=$(curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" | jq '.id' | grep -o '[0-9]\+')
-    echo $TICKET_ID
+    # TICKET_ID=$(curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" | jq '.id' | grep -o '[0-9]\+')
+    # echo $TICKET_ID
 
-    JSON_PAYLOAD=$(jq -n --arg issue-id $TICKET_ID '{
-    "updates": [
-            {
-                "issueIds": [
-                    $ARGS.named["issue-id"]
-                ],
-                "value": "Impediment"
-            }
-        ]
-    }')
-    echo $JSON_PAYLOAD
+    # JSON_PAYLOAD=$(jq -n --arg issue-id $TICKET_ID '{
+    # "updates": [
+    #         {
+    #             "issueIds": [
+    #                 $ARGS.named["issue-id"]
+    #             ],
+    #             "value": "Impediment"
+    #         }
+    #     ]
+    # }')
+    # echo $JSON_PAYLOAD
 
-    curl --request PUT \
-    --url 'https://beckeredu.atlassian.net/rest/api/3/app/field/customfield_10021/value' \
-    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
-    --header 'Accept: application/json' \
-    --header 'Content-Type: application/json' \
-    --data "$JSON_PAYLOAD" |
-    jq '.'
+    # curl --request PUT \
+    # --url 'https://beckeredu.atlassian.net/rest/api/3/app/field/customfield_10021/value' \
+    # --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    # --header 'Accept: application/json' \
+    # --header 'Content-Type: application/json' \
+    # --data "$JSON_PAYLOAD" |
+    # jq '.'
 
    curl --request POST \
   --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
