@@ -18,9 +18,6 @@ else
   --header 'Accept: application/json' \
   --header 'Content-Type: application/json' \
   --data '{
-        "fields": {
-            "customfield_10021": "Impediment"
-        },
         "update": {
             "labels": [
                 {
@@ -30,6 +27,22 @@ else
         }
     }' |
     jq '.'
+
+    # curl --request PUT \
+    # --url 'https://your-domain.atlassian.net/rest/api/2/app/field/{fieldIdOrKey}/value' \
+    # --user 'email@example.com:<api_token>' \
+    # --header 'Accept: application/json' \
+    # --header 'Content-Type: application/json' \
+    # --data '{
+    # "updates": [
+    #         {
+    #             "issueIds": [
+    #                 10010
+    #             ],
+    #             "value": "new value"
+    #         }
+    #     ]
+    # }'
 
    curl --request POST \
   --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
