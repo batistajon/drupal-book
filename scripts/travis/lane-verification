@@ -33,5 +33,6 @@ else
             "type": "doc",
             "version": 1
         }
-    }'
+    }' |
+    jq '.'
 fi
