@@ -17,7 +17,7 @@ before_install:
   # Disable xdebug.
   - phpenv config-rm xdebug.ini
   - composer validate --no-check-all --ansi
-  - source ${TRAVIS_BUILD_DIR}/scripts/travis/lane-verification --no-interaction
+  - source ${TRAVIS_BUILD_DIR}/scripts/travis/type-build-verification --no-interaction
 install:
   - echo "scripts here using travis"
   - source ${TRAVIS_BUILD_DIR}/scripts/travis/move-to-codemerged --no-interaction

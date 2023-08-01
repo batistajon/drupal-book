@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$TRAVIS_PULL_REQUEST_BRANCH" = "" ]; then
+    echo "It's not a Pull Request";
+else
+    ./lane-verification
+fi
