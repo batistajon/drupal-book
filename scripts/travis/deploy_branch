@@ -5,4 +5,4 @@ echo "deploy artifact"
 JIRA_TICKET=$(echo "$TRAVIS_PULL_REQUEST_BRANCH" | grep -o '[A-Z]\+-[0-9]\+' )
 echo "${JIRA_TICKET}"
 # Change status ticket to code merged
-curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"transition":{"id":"181"}}' -H "Content-Type: application/json" http://beckeredu.atlassian.net/rest/api/2/issue/"${JIRA_TICKET}"/transitions
+curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X PUT --data '{"transition":{"id":"181"}}' -H "Content-Type: application/json" http://beckeredu.atlassian.net/rest/api/2/issue/"${JIRA_TICKET}"/transitions | jq '.'
