@@ -1,0 +1,26 @@
+sudo: true
+language: php
+dist: xenial
+
+# Adjust the version of PHP to match your production environment. Making this
+# version number greater than the production environment can have unintended
+# consequences including a non-functional prod environment.
+# The version here MUST match the php version indicated in the deploy section
+# of this file further below, otherwise the artifact won't build.
+php: 8.1.9
+
+matrix:
+  fast_finish: true
+
+before_install:
+  - "echo 'Started: ' && date"
+  # Disable xdebug.
+  - phpenv config-rm xdebug.ini
+  - composer validate --no-check-all --ansi
+  - source ${TRAVIS_BUILD_DIR}/scripts/travis/type-build-verification --no-interaction
+install:
+  - echo "scripts here using travis"
+  - source ${TRAVIS_BUILD_DIR}/scripts/travis/deploy_branch --no-interaction
+
+script:
+  - "echo 'Ended: ' && date"

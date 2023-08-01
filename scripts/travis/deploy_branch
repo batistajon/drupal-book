@@ -1,0 +1,80 @@
+#!/bin/bash
+
+echo "deploy artifact"
+echo "Event Type: ${TRAVIS_EVENT_TYPE}"
+
+JIRA_TICKET=$(echo "$TRAVIS_PULL_REQUEST_BRANCH" | grep -o '[A-Z]\+-[0-9]\+' )
+echo "${JIRA_TICKET}"
+
+TICKET_STATUS=$( curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" | jq '.fields.status.id' | grep -o '[0-9]\+')
+echo "Jira Status need to be Code Review -- 10050"
+echo "Current status: ${TICKET_STATUS}"
+
+# The Code Review status ID is 10050
+if [ "$TICKET_STATUS" = "10050" ]; then
+    echo "Jira Status Correct!";
+    curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X POST --data '{"transition":{"id":"181"}}' -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/transitions" | jq '.'
+else
+    curl --request PUT \
+    --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "update": {
+            "labels": [
+                {
+                    "add": "merge-process-issue"
+                }
+            ]
+        }
+    }' |
+    jq '.'
+
+    curl --request POST \
+    --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "body": {
+            "content": [
+            {
+                "content": [
+                {
+                    "text": "Jira Automation Message: Ticket **Merged** with wrong status. Please change the Ticket to **Code Review** to log work hours and then change ir to **Code Merged**",
+                    "type": "text"
+                }
+                ],
+                "type": "paragraph"
+            }
+            ],
+            "type": "doc",
+            "version": 1
+        }
+    }' |
+    jq '.'
+
+    # TICKET_ID=$(curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" | jq '.id' | grep -o '[0-9]\+')
+    # echo $TICKET_ID
+
+    # JSON_PAYLOAD=$(jq -n --arg issue-id $TICKET_ID '{
+    # "updates": [
+    #         {
+    #             "issueIds": [
+    #                 $ARGS.named["issue-id"]
+    #             ],
+    #             "value": "Impediment"
+    #         }
+    #     ]
+    # }')
+    # echo $JSON_PAYLOAD
+
+    # curl --request PUT \
+    # --url 'https://beckeredu.atlassian.net/rest/api/3/app/field/customfield_10021/value' \
+    # --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    # --header 'Accept: application/json' \
+    # --header 'Content-Type: application/json' \
+    # --data "$JSON_PAYLOAD" |
+    # jq '.'
+fi
