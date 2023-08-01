@@ -3,10 +3,11 @@
 
 JIRA_TICKET=$(echo "$TRAVIS_PULL_REQUEST_BRANCH" | grep -o '[A-Z]\+-[0-9]\+' )
 echo "${JIRA_TICKET}"
-echo $JIRA_TICKET
+export $JIRA_TICKET
 
 TICKET_STATUS=$( curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" | jq '.fields.status.id' | grep -o '[0-9]\+')
-echo "${TICKET_STATUS}"
+echo "Jira Status need to be Code Review -- 10050"
+echo "Current status: ${TICKET_STATUS}"
 
 # The Code Review status ID is 10050
 if [ "$TICKET_STATUS" = "10050" ]; then
