@@ -43,13 +43,13 @@ else
     }')
     echo $JSON_PAYLOAD
 
-    # curl --request PUT \
-    # --url 'https://beckeredu.atlassian.net/rest/api/3/app/field/customfield_10021/value' \
-    # --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
-    # --header 'Accept: application/json' \
-    # --header 'Content-Type: application/json' \
-    # --data $JSON_PAYLOAD |
-    # jq '.'
+    curl --request PUT \
+    --url 'https://beckeredu.atlassian.net/rest/api/3/app/field/customfield_10021/value' \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data "$JSON_PAYLOAD" |
+    jq '.'
 
    curl --request POST \
   --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
