@@ -20,8 +20,7 @@ before_install:
   - source ${TRAVIS_BUILD_DIR}/scripts/travis/type-build-verification --no-interaction
 install:
   - echo "scripts here using travis"
-  - source ${TRAVIS_BUILD_DIR}/scripts/travis/move-to-codemerged --no-interaction
+  - source ${TRAVIS_BUILD_DIR}/scripts/travis/deploy_branch --no-interaction
 
 script:
   - "echo 'Ended: ' && date"
-  - source ${TRAVIS_BUILD_DIR}/scripts/travis/deploy_branch --no-interaction
