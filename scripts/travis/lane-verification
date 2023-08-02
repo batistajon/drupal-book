@@ -3,12 +3,13 @@
 
 BRANCH_NAME=''
 
-echo "Event Type: ${TRAVIS_EVENT_TYPE}"
 
-if ["$TRAVIS_EVENT_TYPE" = "push"]; then
+if [ "$TRAVIS_EVENT_TYPE" = "push" ]; then
     $BRANCH_NAME=$TRAVIS_BRANCH;
+    echo "Branch Name: ${TRAVIS_EVENT_TYPE}"
 else
     $BRANCH_NAME=$TRAVIS_PULL_REQUEST_BRANCH;
+    echo "Branch Name: ${TRAVIS_EVENT_TYPE}"
 fi
 
 JIRA_TICKET=$(echo "$BRANCH_NAME" | grep -o '[A-Z]\+-[0-9]\+' )
