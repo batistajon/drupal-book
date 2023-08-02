@@ -3,16 +3,16 @@
 echo "deploy artifact"
 BRANCH_NAME=''
 
-echo "Event Type: ${TRAVIS_EVENT_TYPE}"
-
-if ["$TRAVIS_EVENT_TYPE" = "push"]; then
+if [ "$TRAVIS_EVENT_TYPE" = "push" ]; then
     $BRANCH_NAME=$TRAVIS_BRANCH;
+    echo "Branch Name: ${BRANCH_NAME}"
 else
     $BRANCH_NAME=$TRAVIS_PULL_REQUEST_BRANCH;
+    echo "Branch Name: ${BRANCH_NAME}"
 fi
 
 JIRA_TICKET=$(echo "$BRANCH_NAME" | grep -o '[A-Z]\+-[0-9]\+' )
-echo "${JIRA_TICKET}"
+echo "Jira Ticket: ${JIRA_TICKET}"
 
 TICKET_STATUS=$( curl -u $JIRA_USER_NAME:$JIRA_API_TOKEN -X GET -H "Content-Type: application/json" "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" | jq '.fields.status.id' | grep -o '[0-9]\+')
 echo "Jira Status need to be Code Review -- 10050"
