@@ -20,29 +20,30 @@ if [ "$TICKET_STATUS" = "10050" ]; then
     --data '{
         "transition": {
             "id": "181"
-        },
-        "update": {
-            "comment": [
+        }
+    }' |
+    jq '.'
+
+    curl --request POST \
+    --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "body": {
+            "content": [
                 {
-                    "add": {
-                        "body": {
-                            "content": [
-                                {
-                                    "content": [
-                                        {
-                                            "text": "Jira Automation: Status Correct! Ticket changed to Code Merge status by automation.",
-                                            "type": "text"
-                                        }
-                                    ],
-                                    "type": "paragraph"
-                                }
-                            ],
-                            "type": "doc",
-                            "version": 1
+                    "content": [
+                        {
+                            "text": "Jira Automation: Status Correct! Ticket changed to Code Merge status by automation.",
+                            "type": "text"
                         }
-                    }
+                    ],
+                    "type": "paragraph"
                 }
-            ]
+            ],
+            "type": "doc",
+            "version": 1
         }
     }' |
     jq '.'
