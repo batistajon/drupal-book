@@ -38,7 +38,7 @@ else
                 {
                     "content": [
                         {
-                            "text": "Jira Automation Message: Pull Request opens with wrong status. Please change the Ticket to Code Review to log work hours.",
+                            "text": "Jira Automation Message: Pull Request opened with wrong status. Please change the Ticket to Code Review to log work hours.",
                             "type": "text"
                         }
                     ],
