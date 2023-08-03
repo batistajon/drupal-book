@@ -18,6 +18,9 @@ if [ "$TICKET_STATUS" = "10050" ]; then
     --header 'Accept: application/json' \
     --header 'Content-Type: application/json' \
     --data '{
+        "transition": {
+            "id": "181"
+        },
         "update": {
             "comment": [
                 {
@@ -40,9 +43,6 @@ if [ "$TICKET_STATUS" = "10050" ]; then
                     }
                 }
             ]
-        },
-        "transition": {
-            "id": "181"
         }
     }' |
     jq '.'
@@ -74,7 +74,8 @@ else
                 {
                     "content": [
                         {
-                            "text": "Jira Automation Message: Ticket **Merged** with wrong status. Please change the Ticket to **Code Review** to log work hours and then change ir to **Code Merged**"
+                            "text": "Jira Automation Message: Ticket **Merged** with wrong status. Please change the Ticket to **Code Review** to log work hours and then change ir to **Code Merged**",
+                            "type": "text"
                         }
                     ],
                     "type": "paragraph"
