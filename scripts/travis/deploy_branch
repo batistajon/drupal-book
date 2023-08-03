@@ -75,7 +75,7 @@ else
                 {
                     "content": [
                         {
-                            "text": "Jira Automation Message: Ticket **Merged** with wrong status. Please change the Ticket status to **Code Review** to log work hours and then change it to **Code Merged** status",
+                            "text": "Jira Automation Message: Ticket *Merged* with wrong status. Please change the Ticket status to *Code Review* to log work hours and then change it to *Code Merged* status",
                             "type": "text"
                         }
                     ],
