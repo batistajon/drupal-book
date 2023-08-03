@@ -22,8 +22,7 @@ if [ "$TICKET_STATUS" = "10050" ]; then
             "comment": [
                 {
                     "add": {
-                        "body": "Jira Automation: Status Correct! Ticket changed to Code Merge status by automation.",
-                        "type": "text"
+                        "body": "Jira Automation: Status Correct! Ticket changed to Code Merge status by automation."
                     }
                 }
             ]
@@ -61,7 +60,7 @@ else
                 {
                     "content": [
                         {
-                            "text": "Jira Automation Message: Ticket **Merged** with wrong status. Please change the Ticket to **Code Review** to log work hours and then change ir to **Code Merged**",
+                            "text": "Jira Automation Message: Ticket **Merged** with wrong status. Please change the Ticket to **Code Review** to log work hours and then change ir to **Code Merged**"
                         }
                     ],
                     "type": "paragraph"
