@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source $(dirname "$0")/functions.sh
+
 is_draft $GITHUB_TOKEN $TRAVIS_PULL_REQUEST
 
 
