@@ -22,11 +22,25 @@ if [ "$TICKET_STATUS" = "10050" ]; then
             "comment": [
                 {
                     "add": {
-                        "body": "Jira Automation: Status Correct! Ticket changed to Code Merge status by automation."
+                        "body": {
+                            "content": [
+                                {
+                                    "content": [
+                                        {
+                                            "text": "Jira Automation: Status Correct! Ticket changed to Code Merge status by automation.",
+                                            "type": "text"
+                                        }
+                                    ],
+                                    "type": "paragraph"
+                                }
+                            ],
+                            "type": "doc",
+                            "version": 1
+                        }
                     }
                 }
             ]
-        },
+        }
         "transition": {
             "id": "181"
         }
