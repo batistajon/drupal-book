@@ -35,15 +35,15 @@ else
     --data '{
         "body": {
             "content": [
-            {
-                "content": [
                 {
-                    "text": "Jira Automation Message: Pull Request opens with wrong status. Please change the Ticket to Code Review to log work hours.",
-                    "type": "text"
+                    "content": [
+                        {
+                            "text": "Jira Automation Message: Pull Request opens with wrong status. Please change the Ticket to Code Review to log work hours.",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "paragraph"
                 }
-                ],
-                "type": "paragraph"
-            }
             ],
             "type": "doc",
             "version": 1
