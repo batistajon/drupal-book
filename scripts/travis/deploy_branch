@@ -35,7 +35,7 @@ if [ "$TICKET_STATUS" = "10050" ]; then
                 {
                     "content": [
                         {
-                            "text": "Jira Automation: Status Correct! Ticket changed to Code Merge status by automation.",
+                            "text": "Jira Automation Message: Status Correct! Ticket changed to Code Merge status by automation.",
                             "type": "text"
                         }
                     ],
