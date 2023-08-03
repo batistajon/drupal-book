@@ -40,7 +40,7 @@ if [ "$TICKET_STATUS" = "10050" ]; then
                     }
                 }
             ]
-        }
+        },
         "transition": {
             "id": "181"
         }
