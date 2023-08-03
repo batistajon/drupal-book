@@ -1,8 +1,8 @@
 #!/bin/bash
 
-err() {
-  printf " [error] %s\n\n" "$*" >&2
-  exit 1
+info() {
+  printf " [info] %s\n\n" "$*" >&2
+  return 0
 }
 
 is_draft() {
@@ -14,6 +14,6 @@ is_draft() {
 
     if $IS_DRAFT
     then
-        err "The PR ${TRAVIS_PULL_REQUEST} is a Draft and still in development."
+        err "The PR ${TRAVIS_PULL_REQUEST} is a Draftnd still in development."
     fi
 }
