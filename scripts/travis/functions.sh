@@ -131,3 +131,7 @@ validate_pull_request() {
     info "Status Correct! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
     return
 }
+
+validate_merged_pull_request () {
+    echo "hello"
+}
