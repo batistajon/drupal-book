@@ -1,9 +1,10 @@
 #!/bin/bash
 
 echo "Event type ${TRAVIS_EVENT_TYPE}"
+echo "TAG type ${TRAVIS_PULL_REQUEST}";
 
 if [ "$TRAVIS_PULL_REQUEST_BRANCH" = "" ]; then
     echo "It's not a Pull Request";
 else
-    bash "${TRAVIS_BUILD_DIR}/scripts/travis/lane-verification"
+    bash "${TRAVIS_BUILD_DIR}/scripts/travis/lane-verification";
 fi
