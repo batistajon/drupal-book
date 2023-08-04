@@ -98,9 +98,10 @@ leave_comment() {
 warn_assignee_pull_request() {
     local JIRA_TICKET=$1
 
+    info "Wrong Status! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
+
     tag_pr_process_issue $JIRA_TICKET
     leave_comment $JIRA_TICKET
-    info "Wrong Status! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
 }
 
 
