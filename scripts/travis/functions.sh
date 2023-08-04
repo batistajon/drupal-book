@@ -175,6 +175,8 @@ move_merged_ticket() {
         }
     }' |
     jq '.'
+
+    successful_merge_comment $JIRA_TICKET
 }
 
 successful_merge_comment() {
