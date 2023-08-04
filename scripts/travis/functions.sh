@@ -2,21 +2,28 @@
 
 info() {
   printf " [info] %s\n\n" "$*" >&2
-  return
+  return 1
+}
+
+is_pull_request() {
+    if [[ ! $TRAVIS_EVENT_TYPE = "pull_request" ]]
+    then
+        return 1
+    fi
+
+    return 0
 }
 
 is_draft() {
-    local GITHUB_TOKEN=$1
-    local TRAVIS_PULL_REQUEST=$2
     local IS_DRAFT=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/batistajon/drupal-book/pulls/${TRAVIS_PULL_REQUEST}" | jq '.draft')
     # IS_DRAFT=$(curl -s -H "Authorization: token ${GITHUB_TOKEN}" "https://api.github.com/repos/colibrigroup/CMS-Drupal-ECOM/pulls/${TRAVIS_PULL_REQUEST}" | jq '.draft')
 
     if ! $IS_DRAFT
     then
-        return
+        return 1
     fi
 
-    return
+    return 0
 }
 
 get_jira_ticket_number() {
@@ -35,10 +42,10 @@ validate_status() {
 
     if [[ ! $TICKET_STATUS = "10050" ]]
     then
-        return
+        return 1
     fi
 
-    return
+    return 0
 }
 
 tag_pr_process_issue() {
@@ -100,12 +107,12 @@ warn_assignee_pull_request() {
 
 # Main function that validates the PR.
 validate_pull_request() {
-    if [[ ! $TRAVIS_EVENT_TYPE = "pull_request" ]]
+    if
     then
         info "The trigger is not a Pull Request. It's a ${TRAVIS_EVENT_TYPE} one";
     fi
 
-    if ! is_draft $GITHUB_TOKEN $TRAVIS_PULL_REQUEST
+    if ! is_draft
     then
         info "The PR ${TRAVIS_PULL_REQUEST} is a Draft and still in development."
     fi
