@@ -113,7 +113,7 @@ validate_pull_request() {
         return
     fi
 
-    if ! is_draft
+    if is_draft
     then
         info "The PR ${TRAVIS_PULL_REQUEST} is a Draft and still in development."
         return
