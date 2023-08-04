@@ -67,7 +67,55 @@ tag_pr_process_issue() {
     jq '.'
 }
 
-leave_comment() {
+tag_merge_process_issue() {
+    local JIRA_TICKET=$1
+
+    curl --request PUT \
+    --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}" \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "update": {
+            "labels": [
+                {
+                    "add": "merge-process-issue"
+                }
+            ]
+        }
+    }' |
+    jq '.'
+}
+
+leave_pr_comment() {
+    local JIRA_TICKET=$1
+
+    curl --request POST \
+    --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "body": {
+            "content": [
+                {
+                    "content": [
+                        {
+                            "text": "Jira Automation Message: Pull Request opened with wrong status. Please change the Ticket to Code Review to log work hours.",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "paragraph"
+                }
+            ],
+            "type": "doc",
+            "version": 1
+        }
+    }' |
+    jq '.'
+}
+
+leave_merge_comment() {
     local JIRA_TICKET=$1
 
     curl --request POST \
@@ -101,9 +149,33 @@ warn_assignee_pull_request() {
     info "Wrong Status! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
 
     tag_pr_process_issue $JIRA_TICKET
-    leave_comment $JIRA_TICKET
+    leave_pr_comment $JIRA_TICKET
 }
 
+warn_assignee_merge_pull_request() {
+    local JIRA_TICKET=$1
+
+    info "Wrong Status! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
+
+    tag_merge_process_issue $JIRA_TICKET
+    leave_merge_comment $JIRA_TICKET
+}
+
+move_merged_ticket() {
+    local JIRA_TICKET=$1
+
+    curl --request POST \
+    --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/transitions" \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "transition": {
+            "id": "181"
+        }
+    }' |
+    jq '.'
+}
 
 # Main function that validates the PR.
 validate_pull_request() {
@@ -133,5 +205,16 @@ validate_pull_request() {
 }
 
 validate_merged_pull_request () {
-    echo "hello"
+    local JIRA_TICKET_NUMBER=$(get_jira_ticket_number $TRAVIS_PULL_REQUEST_BRANCH)
+    local TICKET_STATUS=$(get_ticket_current_status $JIRA_TICKET_NUMBER)
+
+    if ! validate_status $TICKET_STATUS
+    then
+        warn_assignee_merge_pull_request $JIRA_TICKET_NUMBER
+        return
+    fi
+
+    info "Status Correct! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
+    move_merged_ticket $JIRA_TICKET_NUMBER
+    return
 }
