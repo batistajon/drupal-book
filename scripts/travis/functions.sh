@@ -2,7 +2,7 @@
 
 info() {
   printf " [info] %s\n\n" "$*" >&2
-  return 0
+  return
 }
 
 is_draft() {
@@ -14,6 +14,6 @@ is_draft() {
 
     if $IS_DRAFT
     then
-        err "The PR ${TRAVIS_PULL_REQUEST} is a Draftnd still in development."
+        info "The PR ${TRAVIS_PULL_REQUEST} is a Draft and still in development."
     fi
 }
