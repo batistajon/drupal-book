@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(dirname "$0")/functions.sh
+source ./functions.sh
 
 # echo "Event type ${TRAVIS_EVENT_TYPE}"
 # echo "TAG type ${TRAVIS_PULL_REQUEST}";
