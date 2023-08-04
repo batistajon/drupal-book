@@ -2,7 +2,7 @@
 
 info() {
   printf " [info] %s\n\n" "$*" >&2
-  return 1
+  return
 }
 
 is_draft() {
@@ -13,10 +13,10 @@ is_draft() {
 
     if ! $IS_DRAFT
     then
-        return 1
+        return
     fi
 
-    return 0
+    return
 }
 
 get_jira_ticket_number() {
@@ -35,10 +35,10 @@ validate_status() {
 
     if [[ ! $TICKET_STATUS = "10050" ]]
     then
-        return 1
+        return
     fi
 
-    return 0
+    return
 }
 
 tag_pr_process_issue() {
