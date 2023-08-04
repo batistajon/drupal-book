@@ -107,7 +107,7 @@ warn_assignee_pull_request() {
 
 # Main function that validates the PR.
 validate_pull_request() {
-    if
+    if ! is_pull_request
     then
         info "The trigger is not a Pull Request. It's a ${TRAVIS_EVENT_TYPE} one";
     fi
