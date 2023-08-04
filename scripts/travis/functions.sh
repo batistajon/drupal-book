@@ -118,5 +118,5 @@ validate_pull_request() {
         warn_assignee_pull_request $JIRA_TICKET_NUMBER
     fi
 
-    info "Status Correct! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
+    # info "Status Correct! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
 }
