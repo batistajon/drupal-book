@@ -2,7 +2,6 @@
 
 info() {
   printf " [info] %s\n\n" "$*" >&2
-  return 1
 }
 
 is_pull_request() {
@@ -110,11 +109,13 @@ validate_pull_request() {
     if ! is_pull_request
     then
         info "The trigger is not a Pull Request. It's a ${TRAVIS_EVENT_TYPE} one";
+        return
     fi
 
     if ! is_draft
     then
         info "The PR ${TRAVIS_PULL_REQUEST} is a Draft and still in development."
+        return
     fi
 
     local JIRA_TICKET_NUMBER=$(get_jira_ticket_number $TRAVIS_PULL_REQUEST_BRANCH)
@@ -123,7 +124,9 @@ validate_pull_request() {
     if ! validate_status $TICKET_STATUS
     then
         warn_assignee_pull_request $JIRA_TICKET_NUMBER
+        return
     fi
 
-    # info "Status Correct! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
+    info "Status Correct! Jira Status need to be Code Review -- 10050. Current status: ${TICKET_STATUS}"
+    return
 }
