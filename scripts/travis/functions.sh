@@ -177,6 +177,34 @@ move_merged_ticket() {
     jq '.'
 }
 
+successful_merge_comment() {
+    local JIRA_TICKET=$1
+
+    curl --request POST \
+    --url "https://beckeredu.atlassian.net/rest/api/3/issue/${JIRA_TICKET}/comment" \
+    --user $JIRA_USER_NAME:$JIRA_API_TOKEN \
+    --header 'Accept: application/json' \
+    --header 'Content-Type: application/json' \
+    --data '{
+        "body": {
+            "content": [
+                {
+                    "content": [
+                        {
+                            "text": "Jira Automation Message: Status Correct! Ticket changed to Code Merge status by automation.",
+                            "type": "text"
+                        }
+                    ],
+                    "type": "paragraph"
+                }
+            ],
+            "type": "doc",
+            "version": 1
+        }
+    }' |
+    jq '.'
+}
+
 # Main function that validates the PR.
 validate_pull_request() {
     if ! is_pull_request
