@@ -129,7 +129,7 @@ leave_merge_comment() {
                 {
                     "content": [
                         {
-                            "text": "Jira Automation Message: Pull Request opened with wrong status. Please change the Ticket to Code Review to log work hours.",
+                            "text": "Jira Automation Message: Ticket *Merged* with wrong status. Please change the Ticket status to *Code Review* to log work hours and then change it to *Code Merged* status",
                             "type": "text"
                         }
                     ],
