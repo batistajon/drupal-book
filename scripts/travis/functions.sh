@@ -26,7 +26,8 @@ is_draft() {
 }
 
 get_jira_ticket_number() {
-    local JIRA_TICKET=$(echo "$TRAVIS_COMMIT_MESSAGE" | grep -o '[A-Z]\+-[0-9]\+' )
+    local EXPRESSION=$1
+    local JIRA_TICKET=$(echo "$EXPRESSION" | grep -o '[A-Z]\+-[0-9]\+' )
     echo "${JIRA_TICKET}"
 }
 
@@ -221,7 +222,7 @@ validate_pull_request() {
         return
     fi
 
-    local JIRA_TICKET_NUMBER=$(get_jira_ticket_number)
+    local JIRA_TICKET_NUMBER=$(get_jira_ticket_number $TRAVIS_PULL_REQUEST_BRANCH)
     local TICKET_STATUS=$(get_ticket_current_status $JIRA_TICKET_NUMBER)
 
     if ! validate_status $TICKET_STATUS
@@ -240,7 +241,8 @@ validate_merged_pull_request () {
     echo "Commit message: ${TRAVIS_COMMIT_MESSAGE}"
     echo "Commit: ${TRAVIS_COMMIT}"
 
-    local JIRA_TICKET_NUMBER=$(get_jira_ticket_number)
+
+    local JIRA_TICKET_NUMBER=$(get_jira_ticket_number $TRAVIS_COMMIT_MESSAGE)
     local TICKET_STATUS=$(get_ticket_current_status $JIRA_TICKET_NUMBER)
 
     if ! validate_status $TICKET_STATUS
