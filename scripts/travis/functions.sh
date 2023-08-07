@@ -27,6 +27,7 @@ is_draft() {
 
 get_jira_ticket_number() {
     local EXPRESSION=$1
+    echo "$EXPRESSION"
     local JIRA_TICKET=$(echo "$EXPRESSION" | grep -o '[A-Z]\+-[0-9]\+' )
     echo "${JIRA_TICKET}"
 }
@@ -236,10 +237,7 @@ validate_pull_request() {
 }
 
 validate_merged_pull_request () {
-    echo "PR number: ${TRAVIS_PULL_REQUEST}"
-    echo "PR Branch: ${TRAVIS_PULL_REQUEST_BRANCH}"
     echo "Commit message: ${TRAVIS_COMMIT_MESSAGE}"
-
 
     local JIRA_TICKET_NUMBER=$(get_jira_ticket_number $TRAVIS_COMMIT_MESSAGE)
     echo "jira: ${JIRA_TICKET_NUMBER}"
