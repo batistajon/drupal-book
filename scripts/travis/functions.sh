@@ -239,7 +239,7 @@ validate_pull_request() {
 validate_merged_pull_request () {
     echo "Commit message: ${TRAVIS_COMMIT_MESSAGE}"
 
-    local JIRA_TICKET_NUMBER=$(get_jira_ticket_number $TRAVIS_COMMIT_MESSAGE)
+    local JIRA_TICKET_NUMBER=$(get_jira_ticket_number "$TRAVIS_COMMIT_MESSAGE")
     echo "jira: ${JIRA_TICKET_NUMBER}"
 
     local TICKET_STATUS=$(get_ticket_current_status $JIRA_TICKET_NUMBER)
