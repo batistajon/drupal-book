@@ -27,8 +27,8 @@ is_draft() {
 
 get_jira_ticket_number() {
     local EXPRESSION=$1
-    echo "$EXPRESSION"
-    local JIRA_TICKET=$(echo "$EXPRESSION" | grep -o '[A-Z]\+-[0-9]\+' )
+    echo "expression: ${EXPRESSION}"
+    local JIRA_TICKET=$(echo "$EXPRESSION" | grep -o '[A-Z]\+-[0-9]\+')
     echo "${JIRA_TICKET}"
 }
 
