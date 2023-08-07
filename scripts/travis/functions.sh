@@ -236,7 +236,9 @@ validate_pull_request() {
 
 validate_merged_pull_request () {
     echo "PR number: ${TRAVIS_PULL_REQUEST}"
-    echo "PR number: ${TRAVIS_PULL_REQUEST_BRANCH}"
+    echo "PR Branch: ${TRAVIS_PULL_REQUEST_BRANCH}"
+    echo "Commit message: ${TRAVIS_COMMIT_MESSAGE}"
+    echo "Commit: ${TRAVIS_COMMIT}"
 
     local JIRA_TICKET_NUMBER=$(get_jira_ticket_number)
     local TICKET_STATUS=$(get_ticket_current_status $JIRA_TICKET_NUMBER)
