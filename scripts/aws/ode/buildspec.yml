@@ -32,13 +32,13 @@ phases:
       - echo $deployType
       - echo $buildBranch
       - echo $branchName
+      - echo $AC_API_KEY
+      - echo $AC_API_SECRET
       - |
         if [ "$deployType" = "Full" ]; then
-          # bash scripts/cpe-redesign/deploy-cpe-redesign-all.sh $branchName
-          echo "deploy full"
+          bash scripts/cpe-redesign/deploy-cpe-redesign-all.sh $branchName
         elif [ "$deployType" = "CodeOnly" ]; then
-          # bash scripts/cpe-redesign/deploy-cpe-redesign-partial-code-and-config.sh $branchName
-          echo "deploy code only"
+          bash scripts/cpe-redesign/deploy-cpe-redesign-partial-code-and-config.sh $branchName
         else
         	echo "ERROR: Could not determine deployType!"
         	exit 1;
