@@ -1,0 +1,64 @@
+version: 0.2
+
+env:
+  shell: bash
+  git-credential-helper: yes
+  parameter-store:
+    ssh_key: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/ACQUIA_SSH"
+    AC_API_KEY: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/AC_API_KEY"
+    AC_API_SECRET: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/AC_API_SECRET"
+    deployType: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/deployType"
+    branchName: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/branchName"
+  variables:
+    buildBranch: "develop-build"
+phases:
+  pre_build:
+    commands:
+      # List Tickets
+      - TICKETS_LIST=$(git log origin/develop --no-merges --pretty=format:"%B" --not "origin/staging" | tr a-z A-Z | tr ' ,' '\n' | grep -o '[A-Z]\+-[0-9]\+' | sort --version-sort | uniq | tr '\n' ',')
+      - echo $TICKETS_LIST
+      # Authenticate SSH keys
+      - mkdir -p ~/.ssh
+      - echo "$ssh_key" > ~/.ssh/id_rsa
+      - chmod 400 ~/.ssh/id_rsa
+      - ls ~/.ssh
+      - eval "$(ssh-agent -s)"
+      - ssh-keyscan svn-37631.prod.hosting.acquia.com >>~/.ssh/known_hosts
+      - ssh-keyscan staging-36686.prod.hosting.acquia.com >>~/.ssh/known_hosts
+      # clone Artifact Repo
+      - git clone atgeacebecker@svn-37631.prod.hosting.acquia.com:atgeacebecker.git --branch="$buildBranch"
+      - ls -lah
+      - cd atgeacebecker
+  build:
+    commands:
+      - echo $(date)
+      - echo $deployType
+      - echo $buildBranch
+      - echo $branchName
+      - |
+        if [ "$deployType" = "Full" ]; then
+          bash scripts/cpe-redesign/deploy-cpe-redesign-all.sh $branchName
+        elif [ "$deployType" = "CodeOnly" ]; then
+          bash scripts/cpe-redesign/deploy-cpe-redesign-partial-code-and-config.sh $branchName
+        else
+        	echo "ERROR: Could not determine deployType!"
+        	exit 1;
+        fi
+  post_build:
+    commands:
+      - echo $(date)
+      - cd ..
+      - rm -rf atgeacebecker
+      # - |
+      #   if [ "$TICKETS_LIST" = "" ]; then
+      #     echo "No tickets deployed";
+      #   else
+      #     aws lambda update-function-configuration --function-name becker_automated_jira_dev_lambda --environment "Variables={TICKETS_LIST='${TICKETS_LIST}'}";
+      #     aws lambda invoke  \
+      #     --function-name becker_automated_jira_dev_lambda  \
+      #     --cli-binary-format raw-in-base64-out  \
+      #     --payload '{"status": "71"}' output.txt;
+
+      #     cat output.txt;
+      #   fi
+      # - echo $(date)
