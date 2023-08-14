@@ -10,13 +10,10 @@ env:
     deployType: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/deployType"
     branchName: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/branchName"
   variables:
-    buildBranch: "develop-build"
+    buildBranch: "feature/BIT-5441-cpe-redesign-scripts-build"
 phases:
   pre_build:
     commands:
-      # List Tickets
-      - TICKETS_LIST=$(git log origin/develop --no-merges --pretty=format:"%B" --not "origin/staging" | tr a-z A-Z | tr ' ,' '\n' | grep -o '[A-Z]\+-[0-9]\+' | sort --version-sort | uniq | tr '\n' ',')
-      - echo $TICKETS_LIST
       # Authenticate SSH keys
       - mkdir -p ~/.ssh
       - echo "$ssh_key" > ~/.ssh/id_rsa
@@ -37,9 +34,11 @@ phases:
       - echo $branchName
       - |
         if [ "$deployType" = "Full" ]; then
-          bash scripts/cpe-redesign/deploy-cpe-redesign-all.sh $branchName
+          # bash scripts/cpe-redesign/deploy-cpe-redesign-all.sh $branchName
+          echo "deploy full"
         elif [ "$deployType" = "CodeOnly" ]; then
-          bash scripts/cpe-redesign/deploy-cpe-redesign-partial-code-and-config.sh $branchName
+          # bash scripts/cpe-redesign/deploy-cpe-redesign-partial-code-and-config.sh $branchName
+          echo "deploy code only"
         else
         	echo "ERROR: Could not determine deployType!"
         	exit 1;
@@ -49,16 +48,3 @@ phases:
       - echo $(date)
       - cd ..
       - rm -rf atgeacebecker
-      # - |
-      #   if [ "$TICKETS_LIST" = "" ]; then
-      #     echo "No tickets deployed";
-      #   else
-      #     aws lambda update-function-configuration --function-name becker_automated_jira_dev_lambda --environment "Variables={TICKETS_LIST='${TICKETS_LIST}'}";
-      #     aws lambda invoke  \
-      #     --function-name becker_automated_jira_dev_lambda  \
-      #     --cli-binary-format raw-in-base64-out  \
-      #     --payload '{"status": "71"}' output.txt;
-
-      #     cat output.txt;
-      #   fi
-      # - echo $(date)
