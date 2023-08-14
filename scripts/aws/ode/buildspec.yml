@@ -10,7 +10,7 @@ env:
     deployType: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/deployType"
     branchName: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/branchName"
   variables:
-    buildBranch: "feature/BIT-5441-cpe-redesign-scripts-build"
+    buildBranch: "feature/BIT-2874-cpe-redesign-build"
 phases:
   pre_build:
     commands:
