@@ -31,4 +31,4 @@ phases:
   build:
     commands:
       - pwd
-      - bash scripts/post-deploy/post-deploy-tasks.sh $ENV $DISABLE_CAPTCHA $CREATE_USERS $PRODUCT_SYNC $REINDEX_SEARCH
+      - bash ../scripts/post-deploy/post-deploy-tasks.sh $ENV $DISABLE_CAPTCHA $CREATE_USERS $PRODUCT_SYNC $REINDEX_SEARCH
