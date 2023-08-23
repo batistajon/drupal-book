@@ -24,7 +24,7 @@ phases:
       - ssh-keyscan svn-37631.prod.hosting.acquia.com >>~/.ssh/known_hosts
       - ssh-keyscan staging-36686.prod.hosting.acquia.com >>~/.ssh/known_hosts
       # clone Artifact Repo
-      - git clone atgeacebecker@svn-37631.prod.hosting.acquia.com:atgeacebecker.git --branch="$buildBranch"
+      - git clone atgeacebecker@svn-37631.prod.hosting.acquia.com:atgeacebecker.git --branch=develop-deploy
       - ls -lah
       - cd atgeacebecker
 
