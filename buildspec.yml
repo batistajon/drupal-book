@@ -2,25 +2,33 @@ version: 0.2
 
 env:
   shell: bash
-phases:
-  install:
-    runtime-versions:
-      php: 8.2
-    commands:
-      - echo "install step"
+  git-credential-helper: yes
+  parameter-store:
+    ssh_key: id_rsa_colibri_jenkins_acquia_4096
+    DISABLE_CAPTCHA: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/DISABLE_CAPTCHA"
+    CREATE_USERS: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/CREATE_USERS"
+    PRODUCT_SYNC: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/PRODUCT_SYNC"
+    REINDEX_SEARCH: "/CodeBuild/DRPL-ECOM-DEV-Deploy-prod/REINDEX_SEARCH"
+  variables:
+    ENV: "dev"
 
+phases:
   pre_build:
     commands:
-      - echo "pre build"
+      # Authenticate SSH key
+      - mkdir -p ~/.ssh
+      - echo "$ssh_key" > ~/.ssh/id_rsa
+      - chmod 400 ~/.ssh/id_rsa
+      - ls ~/.ssh
+      - eval "$(ssh-agent -s)"
+      - ssh-keyscan svn-37631.prod.hosting.acquia.com >>~/.ssh/known_hosts
+      - ssh-keyscan staging-36686.prod.hosting.acquia.com >>~/.ssh/known_hosts
+      # clone Artifact Repo
+      - git clone atgeacebecker@svn-37631.prod.hosting.acquia.com:atgeacebecker.git --branch="$buildBranch"
+      - ls -lah
+      - cd atgeacebecker
+
   build:
     commands:
-      - echo "composer install"
-      - echo "drush commands"
-      - ls -lah
-      - cd ..
-      - ls -lah
-  post_build:
-    commands:
-      - echo "Zip the report"
-    finally:
-      - echo "Remove all containers"
+      - pwd
+      - bash scripts/post-deploy/post-deploy-tasks.sh $ENV $DISABLE_CAPTCHA $CREATE_USERS $PRODUCT_SYNC $REINDEX_SEARCH
